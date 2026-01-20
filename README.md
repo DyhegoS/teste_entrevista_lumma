@@ -45,9 +45,10 @@ nytimes-coleta/
 ├── src/
 │   ├── index.js
 │   └── utils/
+        ├── askTopic.js
 │       ├── httpClient.js
 │       └── formatDate.js
-├── output/
+├── Noticias/
 │   └── (arquivos .xlsx gerados)
 ├── .env
 ├── package.json
@@ -62,8 +63,8 @@ Node.js (versão 18 ou superior recomendada)
 
 Conta no New York Times Developers
 
-🔑 Configurações Necessárias
-1️⃣ Criar uma API Key do NYTimes
+## 🔑 Configurações Necessárias
+## 1️⃣ Criar uma API Key do NYTimes
 
 Acesse: https://developer.nytimes.com/
 
@@ -73,7 +74,7 @@ Ative a Article Search API
 
 Copie sua API Key
 
-2️⃣ Configurar variáveis de ambiente
+## 2️⃣ Configurar variáveis de ambiente
 
 Crie um arquivo chamado .env na raiz do projeto:
 
@@ -83,10 +84,10 @@ NYT_API_KEY=SUA_API_KEY_AQUI
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 # 📌 Importante:
-Nunca versionar o arquivo .env.
-Inclua-o no .gitignore se estiver usando Git.
+**Nunca versionar o arquivo .env.**
+**Inclua-o no .gitignore se estiver usando Git.**
 
-📦 Instalação das Dependências
+## 📦 Instalação das Dependências
 
 No diretório raiz do projeto, execute:
 
