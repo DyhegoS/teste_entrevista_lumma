@@ -5,6 +5,7 @@ As notícias coletadas são exportadas para um arquivo Excel (.xlsx), contendo t
 
 O sistema utiliza a API oficial do New York Times (Article Search API), garantindo estabilidade, confiabilidade e conformidade com os termos de uso do serviço.
 
+----------------------------------------------------------------------------------------------------------------------------------------
 📌 Funcionalidades
 
 🔍 Busca de notícias por tema
@@ -21,6 +22,8 @@ O sistema utiliza a API oficial do New York Times (Article Search API), garantin
 
 💬 Interação via terminal (entrada de tema pelo usuário)
 
+----------------------------------------------------------------------------------------------------------------------------------------
+
 🛠️ Tecnologias Utilizadas
 
 Node.js
@@ -32,6 +35,8 @@ ExcelJS – Geração de arquivos .xlsx
 dotenv – Gerenciamento de variáveis de ambiente
 
 New York Times Article Search API
+
+----------------------------------------------------------------------------------------------------------------------------------------
 
 📁 Estrutura do Projeto
 nytimes-coleta/
@@ -45,6 +50,8 @@ nytimes-coleta/
 ├── .env
 ├── package.json
 └── README.md
+
+----------------------------------------------------------------------------------------------------------------------------------------
 
 ⚙️ Pré-requisitos
 
@@ -69,6 +76,7 @@ Crie um arquivo chamado .env na raiz do projeto:
 
 NYT_API_KEY=SUA_API_KEY_AQUI
 
+----------------------------------------------------------------------------------------------------------------------------------------
 
 📌 Importante:
 Nunca versionar o arquivo .env.
@@ -83,6 +91,8 @@ npm install
 
 Isso instalará todas as dependências necessárias listadas no package.json.
 
+----------------------------------------------------------------------------------------------------------------------------------------
+
 ▶️ Execução do Script
 Opção 1 – Informar o tema diretamente
 node src/index.js economia
@@ -91,7 +101,6 @@ node src/index.js "economia"
 
 Opção 2 – Informar o tema via terminal (interativo)
 node src/index.js
-
 
 O programa solicitará:
 
@@ -121,6 +130,8 @@ noticias-<tema>.xlsx
 Exemplo:
 
 noticias-economia.xlsx
+
+----------------------------------------------------------------------------------------------------------------------------------------
 
 Observações Técnicas
 
