@@ -1,6 +1,9 @@
 require("dotenv").config();
 const ExcelJS = require("exceljs");
 const { getWithRetry, sleep } = require("./utils/httpClient");
+const { formatDate } = require("./utils/formatDate");
+const path = require("path");
+const fs = require("fs/promises");
 
 const API_KEY = process.env.NYT_API_KEY;
 const BASE_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -10,8 +13,11 @@ async function colectNews(topic) {
   const news = [];
 
   await sleep(1200);
+  const MAX_PAGES = 5;
+  while (news.length < 50 && page < MAX_PAGES) {
 
-  while (news.length < 50) {
+    console.log(`Buscando página ${page + 1}...`);
+
     const response = await getWithRetry(BASE_URL, {
       params: {
         q: topic,
@@ -27,26 +33,33 @@ async function colectNews(topic) {
       break;
     }
 
-    console.log("Docs retornados:", docs.length);
     for (const doc of docs) {
       const title = doc.headline?.main?.toLowerCase() || "";
       const type = doc.type_of_material || "";
       const newsDesk = doc.news_desk || "";
 
       if (title.includes("wordle")) continue;
-      //if (type === "Review") continue;
       if (newsDesk === "Games") continue;
+
       news.push({
         title: doc.headline.main,
-        publishDate: doc.pub_date,
+        publishDate: formatDate(doc.pub_date),
         description: doc.abstract || doc.lead_paragraph || "Sem descrição"
       });
 
       if (news.length >= 50) break;
     }
 
-    await sleep(1800);
+    await sleep(600);
     page++;
+  }
+
+  if (news.length < 50) {
+    console.log(
+      `Não foi possível encontrar 50 notícias para o tema "${topic}". Encontrado apenas ${news.length}.`
+    );
+  } else {
+    console.log(`50 notícias encontradas para o tema "${topic}".`);
   }
 
   return news;
@@ -62,15 +75,27 @@ async function exportToExcel(news, topic) {
     { header: "Descrição", key: "description", width: 80 }
   ];
 
-  news.forEach(news => {
-    sheet.addRow(news);
-  });
+  sheet.addRows(news);
 
-  await workbook.xlsx.writeFile(`noticias-${topic}.xlsx`);
+  const outDir = path.join(__dirname, "..", "Noticias");
+  await fs.mkdir(outDir, { recursive: true });
+
+  const safeTopic = topic
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+
+  const fileName = `noticias-${safeTopic}.xlsx`;
+  const filePath = path.join(outDir, fileName);
+
+  await workbook.xlsx.writeFile(filePath);
+
+  console.log(`Excel salvo em: ${filePath}`);
 }
 
 (async () => {
-  const topic = process.argv[2];
+  const topic = process.argv.slice(2).join(" ").trim();
 
   if (!topic) {
     console.log("Uso: node index.js <topic>");
@@ -82,5 +107,5 @@ async function exportToExcel(news, topic) {
   const news = await colectNews(topic);
   await exportToExcel(news, topic);
 
-  console.log(`✔ ${news.length} notícias exportadas!`);
+  console.log(`${news.length} notícias exportadas!`);
 })();
