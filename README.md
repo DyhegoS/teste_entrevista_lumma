@@ -1,4 +1,4 @@
-📰 Coleta Automatizada de Notícias – New York Times
+# 📰 Coleta Automatizada de Notícias – New York Times
 
 Este projeto consiste em um script em Node.js que realiza a coleta automatizada de notícias do New York Times (NYTimes) com base em um tema informado pelo usuário.
 As notícias coletadas são exportadas para um arquivo Excel (.xlsx), contendo título, data de publicação e descrição.
@@ -6,7 +6,7 @@ As notícias coletadas são exportadas para um arquivo Excel (.xlsx), contendo t
 O sistema utiliza a API oficial do New York Times (Article Search API), garantindo estabilidade, confiabilidade e conformidade com os termos de uso do serviço.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
-📌 Funcionalidades
+# 📌 Funcionalidades
 
 🔍 Busca de notícias por tema
 
@@ -24,7 +24,7 @@ O sistema utiliza a API oficial do New York Times (Article Search API), garantin
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-🛠️ Tecnologias Utilizadas
+# 🛠️ Tecnologias Utilizadas
 
 Node.js
 
@@ -38,7 +38,9 @@ New York Times Article Search API
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-📁 Estrutura do Projeto
+# 📁 Estrutura do Projeto
+
+```lua
 nytimes-coleta/
 ├── src/
 │   ├── index.js
@@ -50,10 +52,11 @@ nytimes-coleta/
 ├── .env
 ├── package.json
 └── README.md
+```
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-⚙️ Pré-requisitos
+# ⚙️ Pré-requisitos
 
 Node.js (versão 18 ou superior recomendada)
 
@@ -74,11 +77,12 @@ Copie sua API Key
 
 Crie um arquivo chamado .env na raiz do projeto:
 
+```env
 NYT_API_KEY=SUA_API_KEY_AQUI
-
+```
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-📌 Importante:
+# 📌 Importante:
 Nunca versionar o arquivo .env.
 Inclua-o no .gitignore se estiver usando Git.
 
@@ -86,27 +90,34 @@ Inclua-o no .gitignore se estiver usando Git.
 
 No diretório raiz do projeto, execute:
 
+```bash
 npm install
-
+```
 
 Isso instalará todas as dependências necessárias listadas no package.json.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-▶️ Execução do Script
+# ▶️ Execução do Script
 Opção 1 – Informar o tema diretamente
+```bash
 node src/index.js economia
 
 node src/index.js "economia"
+```
 
 Opção 2 – Informar o tema via terminal (interativo)
+```bash
 node src/index.js
+```
 
 O programa solicitará:
 
+```yaml
 Informe o tema para pesquisa:
+```
 
-Comportamentos esperados
+## Comportamentos esperados
 
 Se o tema for informado corretamente, o script inicia a coleta
 
@@ -115,17 +126,17 @@ Se nenhum tema for informado, o programa encerra informando que não há resulta
 Caso não sejam encontradas 50 notícias, o sistema informa quantas foram coletadas
 
 Exemplo:
-
+```yaml
 Não foi possível encontrar 50 notícias para o tema "economia". Encontrado apenas 37.
+```
 
-Arquivo de Saída
+# Arquivo de Saída
 
 Os arquivos Excel são gerados na pasta /Noticias, na raiz do projeto
 
 Nome do arquivo:
 
-noticias-<tema>.xlsx
-
+`noticias-<tema>.xlsx`
 
 Exemplo:
 
@@ -133,7 +144,7 @@ noticias-economia.xlsx
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-Observações Técnicas
+# Observações Técnicas
 
 A API do NYTimes retorna no máximo 10 resultados por página
 
