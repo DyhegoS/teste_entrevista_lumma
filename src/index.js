@@ -2,6 +2,7 @@ require("dotenv").config();
 const ExcelJS = require("exceljs");
 const { getWithRetry, sleep } = require("./utils/httpClient");
 const { formatDate } = require("./utils/formatDate");
+const { askTopic } = require("./utils/askTopic")
 const path = require("path");
 const fs = require("fs/promises");
 
@@ -95,12 +96,18 @@ async function exportToExcel(news, topic) {
 }
 
 (async () => {
-  const topic = process.argv.slice(2).join(" ").trim();
+  let topic = process.argv.slice(2).join(" ").trim();
 
   if (!topic) {
-    console.log("Uso: node index.js <topic>");
-    process.exit(1);
+    topic = await askTopic();
   }
+
+  if (!topic) {
+    console.log("Nenhum tema informado. Não há resultados para buscar.");
+    process.exit(0);
+  }
+
+  console.log(`Tema selecionado: "${topic}"`);
 
   console.log(`Coletando notícias sobre: ${topic}...`);
 
